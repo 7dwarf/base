@@ -1,0 +1,7 @@
+buildconfig = "//build/config/BUILDCONFIG.gn"
+
+script_executable = "python3"
+
+default_args = {
+  product_name = "chromium-base"
+}
