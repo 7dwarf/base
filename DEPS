@@ -1,4 +1,4 @@
-gclient_gn_args_file = 'src/build/config/gclient_args.gni'
+gclient_gn_args_file = 'build/config/gclient_args.gni'
 gclient_gn_args = [
   'build_with_chromium',
   'generate_location_tags',
@@ -77,16 +77,16 @@ vars = {
 
   # ninja CIPD package version.
   # https://chrome-infra-packages.appspot.com/p/infra/3pp/tools/ninja
-  # This has to stay in sync with the version in src/third_party/ninja/README.chromium.
+  # This has to stay in sync with the version in third_party/ninja/README.chromium.
   'ninja_version': 'version:2@1.11.1.chromium.6',
 }
 
 deps = {
-  'src/buildtools/clang_format/script':
+  'buildtools/clang_format/script':
     Var('chromium_git') +
     '/external/github.com/llvm/llvm-project/clang/tools/clang-format.git@' +
     Var('clang_format_revision'),
-  'src/buildtools/linux64': {
+  'buildtools/linux64': {
     'packages': [
       {
         'package': 'gn/gn/linux-${{arch}}',
@@ -96,7 +96,7 @@ deps = {
     'dep_type': 'cipd',
     'condition': 'host_os == "linux"',
   },
-  'src/buildtools/mac': {
+  'buildtools/mac': {
     'packages': [
       {
         'package': 'gn/gn/mac-${{arch}}',
@@ -106,7 +106,7 @@ deps = {
     'dep_type': 'cipd',
     'condition': 'host_os == "mac"',
   },
-  'src/buildtools/win': {
+  'buildtools/win': {
     'packages': [
       {
         'package': 'gn/gn/windows-amd64',
@@ -116,57 +116,57 @@ deps = {
     'dep_type': 'cipd',
     'condition': 'host_os == "win"',
   },
-  'src/buildtools/third_party/libc++/trunk':
+  'buildtools/third_party/libc++/trunk':
     Var('chromium_git') +
     '/external/github.com/llvm/llvm-project/libcxx.git' + '@' +
     Var('libcxx_revision'),
-  'src/buildtools/third_party/libc++abi/trunk':
+  'buildtools/third_party/libc++abi/trunk':
     Var('chromium_git') +
     '/external/github.com/llvm/llvm-project/libcxxabi.git' + '@' +
     Var('libcxxabi_revision'),
-  'src/buildtools/third_party/libunwind/trunk':
+  'buildtools/third_party/libunwind/trunk':
     Var('chromium_git') +
     '/external/github.com/llvm/llvm-project/libunwind.git' + '@' +
     Var('libunwind_revision'),
-  'src/third_party/libjpeg_turbo':
+  'third_party/libjpeg_turbo':
     Var('chromium_git') + '/chromium/deps/libjpeg_turbo.git' + '@' + 'aa4075f116e4312537d0d3e9dbd5e31096539f94',
-  'src/third_party/catapult':
+  'third_party/catapult':
     Var('chromium_git') + '/catapult.git' + '@' + Var('catapult_revision'),
-  'src/third_party/lss': {
+  'third_party/lss': {
     'url': Var('chromium_git') + '/linux-syscall-support.git' + '@' + Var('lss_revision'),
     'condition': 'checkout_android or checkout_linux',
   },
-  'src/third_party/perfetto':
+  'third_party/perfetto':
     Var('android_git') + '/platform/external/perfetto.git' + '@' + 'bfdb3fc5cc0fc2ea9324caef920ceb30c1e3d9f5',
-  'src/third_party/sqlite/src':
+  'third_party/sqlite/src':
     Var('chromium_git') + '/chromium/deps/sqlite.git' + '@' + 'f6752b7ed1fe3cc1491c0c47ec5804ee2bd0e59b',
-  'src/third_party/harfbuzz-ng/src':
+  'third_party/harfbuzz-ng/src':
     Var('chromium_git') + '/external/github.com/harfbuzz/harfbuzz.git' + '@' + Var('harfbuzz_revision'),
-  'src/third_party/googletest/src':
+  'third_party/googletest/src':
     Var('chromium_git') + '/external/github.com/google/googletest.git' + '@' + Var('googletest_revision'),
-  'src/third_party/jsoncpp/source':
+  'third_party/jsoncpp/source':
     Var('chromium_git') + '/external/github.com/open-source-parsers/jsoncpp.git'
       + '@' + '42e892d96e47b1f6e29844cc705e148ec4856448', # release 1.9.4
-  'src/third_party/nasm': {
+  'third_party/nasm': {
     'url': Var('chromium_git') + '/chromium/deps/nasm.git' + '@' +
     '7fc833e889d1afda72c06220e5bed8fb43b2e5ce'
   },
-  'src/third_party/icu':
+  'third_party/icu':
     Var('chromium_git') + '/chromium/deps/icu.git' + '@' + 'e3b6a4c334b9cdbe2d54476c7ac4eb98900d1144',
-  'src/third_party/boringssl/src':
+  'third_party/boringssl/src':
     Var('boringssl_git') + '/boringssl.git' + '@' +  Var('boringssl_revision'),
-  'src/third_party/freetype/src':
-    Var('chromium_git') + '/chromium/src/third_party/freetype2.git' + '@' + Var('freetype_revision'),
-  'src/third_party/ced/src':
+  'third_party/freetype/src':
+    Var('chromium_git') + '/chromium/third_party/freetype2.git' + '@' + Var('freetype_revision'),
+  'third_party/ced/src':
     Var('chromium_git') + '/external/github.com/google/compact_enc_det.git' + '@' + 'ba412eaaacd3186085babcd901679a48863c7dd5',
   # Used for embedded builds. CrOS & Linux use the system version.
-  'src/third_party/fontconfig/src': {
+  'third_party/fontconfig/src': {
       'url': Var('chromium_git') + '/external/fontconfig.git' + '@' + '06929a556fdc39c8fe12965b69070c8df520a33e',
       'condition': 'checkout_linux',
   },
-  'src/tools/page_cycler/acid3':
+  'tools/page_cycler/acid3':
     Var('chromium_git') + '/chromium/deps/acid3.git' + '@' + '6be0a66a1ebd7ebc5abc1b2f405a945f6d871521',
-  'src/third_party/depot_tools':
+  'third_party/depot_tools':
     Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + 'aa3d37f8c29c170566c26a2eedeefb96c62b9dd3',
 }
 
@@ -176,14 +176,14 @@ hooks = [
     'name': 'win_toolchain',
     'pattern': '.',
     'condition': 'checkout_win',
-    'action': ['python3', 'src/build/vs_toolchain.py', 'update', '--force'],
+    'action': ['python3', 'build/vs_toolchain.py', 'update', '--force'],
   },
   {
     # Update the Mac toolchain if necessary.
     'name': 'mac_toolchain',
     'pattern': '.',
     'condition': 'checkout_mac or checkout_ios',
-    'action': ['python3', 'src/build/mac_toolchain.py'],
+    'action': ['python3', 'build/mac_toolchain.py'],
   },
   {
     # Update the prebuilt clang toolchain.
@@ -191,60 +191,60 @@ hooks = [
     'name': 'clang',
     'pattern': '.',
     'condition': 'not llvm_force_head_revision',
-    'action': ['python3', 'src/tools/clang/scripts/update.py'],
+    'action': ['python3', 'tools/clang/scripts/update.py'],
   },
   {
     'name': 'sysroot_arm',
     'pattern': '.',
     'condition': 'checkout_linux and checkout_arm',
-    'action': ['python3', 'src/build/linux/sysroot_scripts/install-sysroot.py',
+    'action': ['python3', 'build/linux/sysroot_scripts/install-sysroot.py',
                '--arch=arm'],
   },
   {
     'name': 'sysroot_arm64',
     'pattern': '.',
     'condition': 'checkout_linux and checkout_arm64',
-    'action': ['python3', 'src/build/linux/sysroot_scripts/install-sysroot.py',
+    'action': ['python3', 'build/linux/sysroot_scripts/install-sysroot.py',
                '--arch=arm64'],
   },
   {
     'name': 'sysroot_x86',
     'pattern': '.',
     'condition': 'checkout_linux and (checkout_x86 or checkout_x64)',
-    'action': ['python3', 'src/build/linux/sysroot_scripts/install-sysroot.py',
+    'action': ['python3', 'build/linux/sysroot_scripts/install-sysroot.py',
                '--arch=x86'],
   },
   {
     'name': 'sysroot_mips',
     'pattern': '.',
     'condition': 'checkout_linux and checkout_mips',
-    'action': ['python3', 'src/build/linux/sysroot_scripts/install-sysroot.py',
+    'action': ['python3', 'build/linux/sysroot_scripts/install-sysroot.py',
                '--arch=mips'],
   },
   {
     'name': 'sysroot_mips64',
     'pattern': '.',
     'condition': 'checkout_linux and checkout_mips64',
-    'action': ['python3', 'src/build/linux/sysroot_scripts/install-sysroot.py',
+    'action': ['python3', 'build/linux/sysroot_scripts/install-sysroot.py',
                '--arch=mips64el'],
   },
   {
     'name': 'sysroot_x64',
     'pattern': '.',
     'condition': 'checkout_linux and checkout_x64',
-    'action': ['python3', 'src/build/linux/sysroot_scripts/install-sysroot.py',
+    'action': ['python3', 'build/linux/sysroot_scripts/install-sysroot.py',
                '--arch=x64'],
   },
   {
     'name': 'test_fonts',
     'pattern': '.',
     'action': [ 'python3',
-                'src/third_party/depot_tools/download_from_google_storage.py',
+                'third_party/depot_tools/download_from_google_storage.py',
                 '--no_resume',
                 '--extract',
                 '--no_auth',
                 '--bucket', 'chromium-fonts',
-                '-s', 'src/third_party/test_fonts/test_fonts.tar.gz.sha1',
+                '-s', 'third_party/test_fonts/test_fonts.tar.gz.sha1',
     ],
   },
 ]
